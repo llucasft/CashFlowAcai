@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.cashflowacai.database.AppDataBase
+import com.example.cashflowacai.model.Register
 import com.google.android.material.datepicker.MaterialDatePicker
 import org.w3c.dom.Text
 import java.math.BigDecimal
@@ -23,6 +25,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnSave : Button
     lateinit var tvTotal : TextView
     val calendar = Calendar.getInstance()
+
+    // Creating database instance in class
+    private val registerDao by lazy {
+        val db = AppDataBase.instance(this)
+        db.registerDao()
+    }
+
+    private var registerId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +63,13 @@ class MainActivity : AppCompatActivity() {
     private fun setBtnSave(){
         btnSave.setOnClickListener {
             var total = addValues()
-            tvTotal.text = "Total de entradas: $total"
+            //tvTotal.text = "Total de entradas: $total"
+            registerDao.save(total)
         }
     }
 
     // Getting values from the EditText fields
-    private fun addValues():BigDecimal{
+    private fun addValues(): Register{
         val pixValueText = etPix.text.toString()
         val pixValue = if(pixValueText.isBlank()){
             BigDecimal.ZERO
@@ -93,12 +104,27 @@ class MainActivity : AppCompatActivity() {
         } else {
             BigDecimal(ifoodValueText)
         }
-        return pixValue + cashValue + debitValue + creditValue + ifoodValue
+        
+        // Inserting register to database
+        return Register(
+            id = registerId,
+            pix = pixValue,
+            cash = cashValue,
+            debit = debitValue,
+            credit = creditValue,
+            ifood = ifoodValue,
+            date = dateUpdateInView()
+        )
     }
 
-    private fun dateUpdateInView(){
+    // Getting the current day date
+    private fun dateUpdateInView(): String{
+        // Setting date format to brazilian format
         val dateFormatToPtBr = "dd/MM/yyyy"
         val simpleDateFormat = SimpleDateFormat(dateFormatToPtBr, Locale("pt", "br"))
-        tvDate.text = simpleDateFormat.format(calendar.time)
+        //tvDate.text = simpleDateFormat.format(calendar.time)
+        val todayDate = simpleDateFormat.format(calendar.time)
+        tvDate.text = todayDate
+        return todayDate
     }
 }
