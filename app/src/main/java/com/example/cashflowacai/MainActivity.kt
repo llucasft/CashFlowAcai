@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var tvDate : TextView? = null
-    var btnDate : Button? = null
+    lateinit var tvDate : TextView
+    lateinit var btnDate : Button
     val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,13 +21,17 @@ class MainActivity : AppCompatActivity() {
 
         tvDate = findViewById(R.id.tvDate)
         btnDate = findViewById(R.id.btnDate)
-
         dateUpdateInView()
+
+        btnDate.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.dateRangePicker().build()
+            datePicker.show(supportFragmentManager, "Selecione a data")
+        }
     }
 
     private fun dateUpdateInView(){
         val dateFormatToPtBr = "dd/MM/yyyy"
         val simpleDateFormat = SimpleDateFormat(dateFormatToPtBr, Locale("pt", "br"))
-        tvDate!!.text = simpleDateFormat.format(calendar.time)
+        tvDate.text = simpleDateFormat.format(calendar.time)
     }
 }
