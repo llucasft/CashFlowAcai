@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Initiating fields
         tvDate = findViewById(R.id.tvDate)
         btnDate = findViewById(R.id.btnDate)
         etPix = findViewById(R.id.etPix)
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         tvTotal = findViewById(R.id.tvTotal)
         dateUpdateInView()
 
+        // Seting date period selector
         btnDate.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.dateRangePicker().build()
             datePicker.show(supportFragmentManager, "Selecione a data")
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         setBtnSave()
     }
 
+    // Seting listener to get and save values of the EditText's
     private fun setBtnSave(){
         btnSave.setOnClickListener {
             var total = addValues()
@@ -54,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Getting values from the EditText fields
     private fun addValues():BigDecimal{
         val pixValueText = etPix.text.toString()
         val pixValue = if(pixValueText.isBlank()){
