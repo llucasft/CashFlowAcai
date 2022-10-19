@@ -1,19 +1,19 @@
-package com.example.cashflowacai
+package com.example.cashflowacai.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.cashflowacai.R
 import com.example.cashflowacai.database.AppDataBase
 import com.example.cashflowacai.model.Register
 import com.google.android.material.datepicker.MaterialDatePicker
-import org.w3c.dom.Text
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class FormActivity : AppCompatActivity() {
 
     lateinit var tvDate : TextView
     lateinit var btnDate : Button
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_form)
 
         // Initiating fields
         tvDate = findViewById(R.id.tvDate)
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     // Seting listener to get and save values of the EditText's
     private fun setBtnSave(){
         btnSave.setOnClickListener {
-            var total = addValues()
+            val total = addValues()
             //tvTotal.text = "Total de entradas: $total"
             registerDao.save(total)
         }
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             BigDecimal(ifoodValueText)
         }
-        
+
         // Inserting register to database
         return Register(
             id = registerId,
