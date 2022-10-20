@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.activity.FormActivity">
+
+        <TextView
+            android:id="@+id/tvSeeRegisterDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="20sp"
+            android:text="--/--/----"
+            android:inputType="number"
+            android:textAlignment="center" />
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/btnSeeRegisterDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="alterar data" />
+
+        <TextView
+            android:id="@+id/tvSeeRegisterPix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:text="Vendas Pix"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvSeeRegisterCash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:text="Vendas Dinheiro"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvSeeRegisterDebit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:text="Vendas Débito"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvSeeRegisterCredit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:text="Vendas Crédito"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvSeeRegisterIfood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:text="Vendas Ifood"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvSeeRegisterTotalHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Total de entradas: R$0,00"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvSeeRegisterTotalValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="R$0,00"
+            android:textAlignment="center"
+            android:textSize="26sp" />
+    </LinearLayout>
+</ScrollView>
