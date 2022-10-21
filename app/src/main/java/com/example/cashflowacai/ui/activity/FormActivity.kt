@@ -1,18 +1,23 @@
 package com.example.cashflowacai.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.cashflowacai.R
 import com.example.cashflowacai.database.AppDataBase
 import com.example.cashflowacai.model.Register
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeParseException
 import java.util.*
+
 
 class FormActivity : AppCompatActivity() {
 
@@ -26,6 +31,9 @@ class FormActivity : AppCompatActivity() {
     lateinit var btnSave : Button
     lateinit var tvTotal : TextView
     val calendar = Calendar.getInstance()
+    val year = calendar.get(Calendar.YEAR)
+    val month = calendar.get(Calendar.MONTH)
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
 
     // Creating database instance in class
     private val registerDao by lazy {
@@ -50,22 +58,48 @@ class FormActivity : AppCompatActivity() {
         btnSave = findViewById(R.id.btnSave)
         tvTotal = findViewById(R.id.tvTotal)
         dateUpdateInView()
-
-        // Seting date period selector
         btnDate.setOnClickListener {
-            val datePicker = MaterialDatePicker.Builder.dateRangePicker().build()
-            datePicker.show(supportFragmentManager, "Selecione a data")
+            showDateStartRangePicker()
         }
 
+        // Seting date period selector
         setBtnSave()
+    }
+
+    private fun showDateStartRangePicker() {
+        val dpd = DatePickerDialog(this,
+            DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
+                tvDate.setText("" + mDay + "/" + (mMonth + 1) + "/" + mYear)
+            }, year, month, day
+        )
+        dpd.show()
+    }
+
+    private fun selectTodayDate() {
+        val datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Selecione a data").build()
+        datePicker.show(supportFragmentManager, "date_picker")
+        datePicker.addOnPositiveButtonClickListener { datePicked->
+            if(datePicked != null) {
+                val todayDate = convertLongToDate(datePicked)
+                tvDate.text = todayDate
+            }
+        }
+    }
+
+    private fun convertLongToDate(time: Long): String{
+        val date = Date(time)
+        val simpleDateFormat = SimpleDateFormat(
+            "dd/MM/yyyy",
+            Locale("pt", "br")
+        )
+        return simpleDateFormat.format(date)
     }
 
     // Seting listener to get and save values of the EditText's
     private fun setBtnSave(){
         btnSave.setOnClickListener {
-            val total = addValues()
-            //tvTotal.text = "Total de entradas: $total"
-            registerDao.save(total)
+            val returnedRegister = addValues()
+            registerDao.save(returnedRegister)
             Toast.makeText(
                 this,
                 "Registro salvo com sucesso! ",
@@ -111,6 +145,8 @@ class FormActivity : AppCompatActivity() {
             BigDecimal(ifoodValueText)
         }
 
+        tvTotal.text = "R$" + (pixValue + cashValue + debitValue + creditValue + ifoodValue).toString()
+
         // Inserting register to database
         return Register(
             id = registerId,
@@ -119,11 +155,11 @@ class FormActivity : AppCompatActivity() {
             debit = debitValue,
             credit = creditValue,
             ifood = ifoodValue,
-            date = dateUpdateInView()
+            date = tvDate.text.toString()
         )
     }
 
-    // Getting the current day date
+     //Getting the current day date
     private fun dateUpdateInView(): String{
         // Setting date format to brazilian format
         val dateFormatToPtBr = "dd/MM/yyyy"
