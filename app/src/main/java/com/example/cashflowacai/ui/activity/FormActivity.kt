@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.example.cashflowacai.R
 import com.example.cashflowacai.database.AppDataBase
 import com.example.cashflowacai.model.Register
@@ -65,6 +66,11 @@ class FormActivity : AppCompatActivity() {
             val total = addValues()
             //tvTotal.text = "Total de entradas: $total"
             registerDao.save(total)
+            Toast.makeText(
+                this,
+                "Registro salvo com sucesso! ",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
