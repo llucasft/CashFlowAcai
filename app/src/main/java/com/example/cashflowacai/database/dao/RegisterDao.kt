@@ -14,4 +14,7 @@ interface RegisterDao {
 
     @Query("SELECT * FROM Register")
     fun selectFromDb() : List<Register>
+
+    @Query("SELECT * FROM Register WHERE date = :date")
+    fun selectFromDbByDate(date: String) : Register
 }
