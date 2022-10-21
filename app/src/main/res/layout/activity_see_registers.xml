@@ -7,81 +7,142 @@
     android:fillViewport="true"
     android:gravity="center">
 
-    <LinearLayout
-        android:layout_margin="8dp"
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.activity.FormActivity">
+        android:layout_margin="8dp">
 
-        <TextView
-            android:id="@+id/tvSeeRegisterDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:textSize="20sp"
-            android:text="--/--/----"
-            android:inputType="number"
-            android:textAlignment="center" />
+        <TableRow>
+            <TextView
+                android:id="@+id/tvSeeRegisterDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="--/--/----"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                android:textSize="20sp" />
 
-        <Button
-            android:layout_gravity="center"
-            android:id="@+id/btnSeeRegisterDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="alterar data" />
+            <Button
+                android:id="@+id/btnSeeRegisterDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="alterar data" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/tvSeeRegisterPix"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            android:text="Vendas Pix"
-            android:textAlignment="center" />
+        <TableRow android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/tvSeeRegisterPixHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Valor Pix"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                android:layout_weight="4"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/tvSeeRegisterCash"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            android:text="Vendas Dinheiro"
-            android:textAlignment="center" />
+            <TextView
+                android:id="@+id/tvSeeRegisterPix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Pix"
+                android:textAlignment="viewStart"
+                android:layout_weight="6"
+                android:textSize="18sp" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/tvSeeRegisterDebit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            android:text="Vendas Débito"
-            android:textAlignment="center" />
+        <TableRow android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/tvSeeRegisterCashHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Valor Dinheiro"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/tvSeeRegisterCredit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            android:text="Vendas Crédito"
-            android:textAlignment="center" />
+            <TextView
+                android:id="@+id/tvSeeRegisterCash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Dinheiro"
+                android:textAlignment="viewStart"
+                android:textSize="18sp" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/tvSeeRegisterIfood"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            android:text="Vendas Ifood"
-            android:textAlignment="center" />
+        <TableRow android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/tvSeeRegisterDebitHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Valor Débito"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvSeeRegisterDebit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Débito"
+                android:textAlignment="viewStart"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/tvSeeRegisterCreditHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Valor Crédito"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvSeeRegisterCredit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Crédito"
+                android:textAlignment="viewStart"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/tvSeeRegisterIfoodHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Valor Ifood"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvSeeRegisterIfood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Ifood"
+                android:textAlignment="viewStart"
+                android:textSize="18sp" />
+        </TableRow>
 
         <TextView
             android:id="@+id/tvSeeRegisterTotalHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="100dp"
             android:text="Total de entradas:"
             android:textAlignment="center"
             android:textSize="24sp" />
@@ -94,5 +155,5 @@
             android:text="R$0,00"
             android:textAlignment="center"
             android:textSize="26sp" />
-    </LinearLayout>
+    </TableLayout>
 </ScrollView>
