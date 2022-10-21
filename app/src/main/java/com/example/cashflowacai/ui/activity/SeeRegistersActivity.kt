@@ -55,6 +55,8 @@ class SeeRegistersActivity : AppCompatActivity() {
 
         register = registerDao.selectFromDbByDate(day)
 
+        tvSeeRegisterTotalValue.text = "R$" + (register.pix + register.cash + register.debit + register.credit + register.ifood).toString()
+
         val pixText : String = register.pix.toBrazilianReal()
         tvSeeRegisterPix.text = "Pix: " + pixText
 
