@@ -20,7 +20,17 @@ class Converters {
     }
 
     @TypeConverter
-    fun stringToDate(date: String?) : Date?{
-        return date?.let { Date(date) }
+    fun toDate(dateLong: Long?): Date? {
+        return dateLong?.let { Date(it) }
     }
+
+    @TypeConverter
+    fun fromDate(date: Date?): Long? {
+        return date?.time
+    }
+
+//    @TypeConverter
+//    fun stringToDate(date: String?) : Date?{
+//        return date?.let { Date(date) }
+//    }
 }
