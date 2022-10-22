@@ -29,8 +29,4 @@ class Converters {
         return date?.time
     }
 
-//    @TypeConverter
-//    fun stringToDate(date: String?) : Date?{
-//        return date?.let { Date(date) }
-//    }
 }
