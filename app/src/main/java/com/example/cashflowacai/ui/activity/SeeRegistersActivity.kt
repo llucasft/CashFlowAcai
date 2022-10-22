@@ -81,27 +81,27 @@ class SeeRegistersActivity : AppCompatActivity() {
 
         // Seting date period selector
         btnSeeRegisterStartDate.setOnClickListener {
-            toQuerySartDate = showDateStartRangePicker()
+            //toQuerySartDate = showDateStartRangePicker()
+            showDateStartRangePicker()
         }
 
         btnSeeRegisterEndDate.setOnClickListener {
-            toQueryEndDate = showDateEndRangePicker()
+            //toQueryEndDate = showDateEndRangePicker()
+            showDateEndRangePicker()
         }
 
-        registerDao.convertToLong(toQuerySartDate, toQueryEndDate)
+        //registerDao.convertToLong(toQuerySartDate, toQueryEndDate)
     }
 
-    private fun showDateStartRangePicker() : String{
-        var dateToReturn = ""
+    private fun showDateStartRangePicker(){
+        //var dateToReturn = ""
         val dpd = DatePickerDialog(this,
             DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
                 tvSeeRegiseterStartDate.setText("" + mDay + "/" + (mMonth+1) + "/" + mYear)
-                dateToReturn = "" + mDay + "/" + (mMonth+1) + "/" + mYear
+                //dateToReturn = "" + mDay + "/" + (mMonth+1) + "/" + mYear
             }, year, month, day)
 
         dpd.show()
-
-        return dateToReturn
 
 //        val dateRangePicker = MaterialDatePicker.Builder
 //            .dateRangePicker()
@@ -126,15 +126,14 @@ class SeeRegistersActivity : AppCompatActivity() {
 //        }
     }
 
-    private fun showDateEndRangePicker() : String {
-        var dateToReturn = ""
+    private fun showDateEndRangePicker() {
+        //var dateToReturn = ""
         val dpd = DatePickerDialog(this,
             DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
                 tvSeeRegisterEndDate.setText("" + mDay + "/" + (mMonth+1) + "/" + mYear)
-                dateToReturn = "" + mDay + "/" + (mMonth+1) + "/" + mYear
+                //dateToReturn = "" + mDay + "/" + (mMonth+1) + "/" + mYear
             }, year, month, day)
         dpd.show()
-        return dateToReturn
     }
 
 //    private fun convertLongToDate(time: Long): String{

@@ -2,7 +2,6 @@ package com.example.cashflowacai.ui.activity
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -12,10 +11,9 @@ import com.example.cashflowacai.R
 import com.example.cashflowacai.database.AppDataBase
 import com.example.cashflowacai.model.Register
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import java.math.BigDecimal
+import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeParseException
 import java.util.*
 
 
@@ -30,6 +28,7 @@ class FormActivity : AppCompatActivity() {
     lateinit var etIfood : EditText
     lateinit var btnSave : Button
     lateinit var tvTotal : TextView
+    var dateToModel : String = ""
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
@@ -42,6 +41,7 @@ class FormActivity : AppCompatActivity() {
     }
 
     private var registerId = 0L
+    private lateinit var date : Date
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,12 +87,12 @@ class FormActivity : AppCompatActivity() {
     }
 
     private fun convertLongToDate(time: Long): String{
-        val date = Date(time)
+        val dateToLong = Date(time)
         val simpleDateFormat = SimpleDateFormat(
             "dd/MM/yyyy",
             Locale("pt", "br")
         )
-        return simpleDateFormat.format(date)
+        return simpleDateFormat.format(dateToLong)
     }
 
     // Seting listener to get and save values of the EditText's
@@ -145,6 +145,13 @@ class FormActivity : AppCompatActivity() {
             BigDecimal(ifoodValueText)
         }
 
+        dateToModel = tvDate.text.toString() ;  // where startDate is your TextView
+        val simpleDateFormat =  SimpleDateFormat("dd/MM/yyyy", Locale("pt", "br"));  // same date format as your TextView supports
+        try {
+            date = simpleDateFormat.parse(dateToModel); // parses the string date to get a date object
+        } catch (e: ParseException ) {
+            e.printStackTrace();
+        }
         tvTotal.text = "R$" + (pixValue + cashValue + debitValue + creditValue + ifoodValue).toString()
 
         // Inserting register to database
@@ -155,7 +162,7 @@ class FormActivity : AppCompatActivity() {
             debit = debitValue,
             credit = creditValue,
             ifood = ifoodValue,
-            date = tvDate.text.toString()
+            date = date
         )
     }
 
