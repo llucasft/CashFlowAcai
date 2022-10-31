@@ -5,181 +5,236 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/background_color">
 
-    <TableLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_height="wrap_content">
 
-        <TableRow>
-            <TextView
-                android:id="@+id/tvSeeRegisterStartDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:text="--/--/----"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tvSeeRegisterStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--/--/----"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvSeeRegisterEndDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:text="--/--/----"
-                android:textAlignment="viewStart"
-                android:layout_gravity="start"
-                android:textSize="20sp" />
-        </TableRow>
+        <TextView
+            android:id="@+id/tvSeeRegisterEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="--/--/----"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TableRow>
-            <Button
-                android:id="@+id/btnSeeRegisterStartDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="alterar data"
-                android:textColor="@android:color/black"/>
+        <Button
+            android:id="@+id/btnSeeRegisterStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="alterar data"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSeeRegisterStartDate" />
 
-            <Button
-                android:id="@+id/btnSeeRegisterEndDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="alterar data"
-                android:textColor="@android:color/black"/>
-        </TableRow>
+        <Button
+            android:id="@+id/btnSeeRegisterEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="alterar data"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/tvSeeRegisterEndDate" />
 
         <Button
             android:id="@+id/btnQuery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="consultar"
-            android:textColor="@android:color/black" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSeeRegisterEndDate" />
 
-        <TableRow android:layout_marginTop="16dp">
-            <TextView
-                android:id="@+id/tvSeeRegisterPixHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Valor Pix"
-                android:layout_gravity="start"
-                android:textAlignment="viewStart"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvSeeRegisterPixHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:layout_marginStart="16dp"
+            android:text="Valor Pix:"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnQuery" />
 
-            <TextView
-                android:id="@+id/tvSeeRegisterPix"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Pix"
-                android:textAlignment="viewStart"
-                android:textSize="18sp" />
-        </TableRow>
+        <TextView
+            android:id="@+id/tvSeeRegisterPix"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Pix"
+            android:layout_marginStart="8dp"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvSeeRegisterPixHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/tvSeeRegisterPixHeader" />
 
-        <TableRow android:layout_marginTop="16dp">
-            <TextView
-                android:id="@+id/tvSeeRegisterCashHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Valor Dinheiro"
-                android:textAlignment="viewStart"
-                android:layout_gravity="start"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvSeeRegisterCashHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Valor Dinheiro:"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSeeRegisterPixHeader" />
 
-            <TextView
-                android:id="@+id/tvSeeRegisterCash"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Dinheiro"
-                android:textAlignment="viewStart"
-                android:textSize="18sp" />
-        </TableRow>
+        <TextView
+            android:id="@+id/tvSeeRegisterCash"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Dinheiro"
+            android:layout_marginStart="8dp"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvSeeRegisterCashHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/tvSeeRegisterCashHeader" />
 
-        <TableRow android:layout_marginTop="16dp">
-            <TextView
-                android:id="@+id/tvSeeRegisterDebitHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Valor Débito"
-                android:textAlignment="viewStart"
-                android:layout_gravity="start"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvSeeRegisterDebitHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Valor Débito:"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSeeRegisterCashHeader" />
 
-            <TextView
-                android:id="@+id/tvSeeRegisterDebit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Débito"
-                android:textAlignment="viewStart"
-                android:textSize="18sp" />
-        </TableRow>
+        <TextView
+            android:id="@+id/tvSeeRegisterDebit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Débito"
+            android:layout_marginStart="8dp"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvSeeRegisterDebitHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/tvSeeRegisterDebitHeader" />
 
-        <TableRow android:layout_marginTop="16dp">
-            <TextView
-                android:id="@+id/tvSeeRegisterCreditHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Valor Crédito"
-                android:textAlignment="viewStart"
-                android:layout_gravity="start"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvSeeRegisterCreditHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Valor Crédito:"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSeeRegisterDebitHeader" />
 
-            <TextView
-                android:id="@+id/tvSeeRegisterCredit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Crédito"
-                android:textAlignment="viewStart"
-                android:textSize="18sp" />
-        </TableRow>
+        <TextView
+            android:id="@+id/tvSeeRegisterCredit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Crédito"
+            android:layout_marginStart="8dp"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvSeeRegisterCreditHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/tvSeeRegisterCreditHeader" />
 
-        <TableRow android:layout_marginTop="16dp">
-            <TextView
-                android:id="@+id/tvSeeRegisterIfoodHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Valor Ifood"
-                android:textAlignment="viewStart"
-                android:layout_gravity="start"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvSeeRegisterIfoodHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Valor Ifood:"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSeeRegisterCreditHeader" />
 
-            <TextView
-                android:id="@+id/tvSeeRegisterIfood"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Ifood"
-                android:textAlignment="viewStart"
-                android:textSize="18sp" />
-        </TableRow>
+        <TextView
+            android:id="@+id/tvSeeRegisterIfood"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Ifood"
+            android:layout_marginStart="8dp"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvSeeRegisterIfoodHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/tvSeeRegisterIfoodHeader" />
 
         <TextView
             android:id="@+id/tvSeeRegisterTotalHeader"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="100dp"
             android:text="Total de entradas:"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSeeRegisterIfoodHeader" />
 
         <TextView
             android:id="@+id/tvSeeRegisterTotalValue"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="28dp"
             android:text="R$0,00"
             android:textAlignment="center"
-            android:textSize="26sp" />
-    </TableLayout>
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSeeRegisterTotalHeader"
+            app:layout_constraintStart_toEndOf="@id/tvSeeRegisterTotalHeader"
+            app:layout_constraintTop_toTopOf="@id/tvSeeRegisterTotalHeader" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="205dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="145dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

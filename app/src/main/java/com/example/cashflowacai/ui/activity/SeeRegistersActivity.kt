@@ -61,23 +61,23 @@ class SeeRegistersActivity : AppCompatActivity() {
         binding.btnQuery.setOnClickListener {
             val pixText = registerDao.selectPixFromDbByDate(date1, date2)
             val pixValue : String = pixText.toBrazilianReal()
-            binding.tvSeeRegisterPix.text = "Pix: " + pixValue
+            binding.tvSeeRegisterPix.text = "" + pixValue
 
             val cashText = registerDao.selectCashFromDbByDate(date1, date2)
             val cashValue : String = cashText.toBrazilianReal()
-            binding.tvSeeRegisterCash.text = "Pix: " + cashValue
+            binding.tvSeeRegisterCash.text = "" + cashValue
 
             val debitText = registerDao.selectDebitFromDbByDate(date1, date2)
             val debitValue : String = debitText.toBrazilianReal()
-            binding.tvSeeRegisterDebit.text = "Pix: " + debitValue
+            binding.tvSeeRegisterDebit.text = "" + debitValue
 
             val creditText = registerDao.selectCreditFromDbByDate(date1, date2)
             val creditValue : String = creditText.toBrazilianReal()
-            binding.tvSeeRegisterCredit.text = "Pix: " + creditValue
+            binding.tvSeeRegisterCredit.text = "" + creditValue
 
             val ifoodText = registerDao.selectIfoodFromDbByDate(date1, date2)
             val ifoodValue : String = ifoodText.toBrazilianReal()
-            binding.tvSeeRegisterIfood.text = "Pix: " + ifoodValue
+            binding.tvSeeRegisterIfood.text = "" + ifoodValue
 
             binding.tvSeeRegisterTotalValue.text = "R$" + (pixText + cashText + debitText + creditText + ifoodText).toString()
 
