@@ -5,27 +5,30 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.example.cashflowacai.R
+import com.example.cashflowacai.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var btnForm : Button
-    lateinit var btnSeeRegiser : Button
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        buttonsConfig()
+    }
 
-        btnForm = findViewById(R.id.btnForm)
-        btnSeeRegiser = findViewById(R.id.btnSeeRegister)
+    fun buttonsConfig(){
+        with(binding) {
+            btnForm.setOnClickListener {
+                val intent = Intent(this@MainActivity, FormActivity::class.java)
+                startActivity(intent)
+            }
 
-        btnForm.setOnClickListener {
-            val intent = Intent(this, FormActivity::class.java)
-            startActivity(intent)
-        }
-
-        btnSeeRegiser.setOnClickListener {
-            val intent = Intent(this, SeeRegistersActivity::class.java)
-            startActivity(intent)
+            btnSeeRegister.setOnClickListener {
+                val intent = Intent(this@MainActivity, SeeRegistersActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }
