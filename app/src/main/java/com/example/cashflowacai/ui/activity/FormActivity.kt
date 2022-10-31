@@ -144,7 +144,7 @@ class FormActivity : AppCompatActivity() {
             } catch (e: ParseException) {
                 e.printStackTrace();
             }
-            tvTotal.text =
+            tvTotalValue.text =
                 "R$" + (pixValue + cashValue + debitValue + creditValue + ifoodValue).toString()
 
             // Inserting register to database
