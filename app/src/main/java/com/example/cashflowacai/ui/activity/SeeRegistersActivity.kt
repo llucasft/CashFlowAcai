@@ -39,6 +39,7 @@ class SeeRegistersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySeeRegistersBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        title = "Consultar vendas"
 
         val db = AppDataBase.instance(this)
         val registerDao = db.registerDao()

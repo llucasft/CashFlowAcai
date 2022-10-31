@@ -40,6 +40,7 @@ class FormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        title = "Fechamento de caixa"
 
         dateUpdateInView()
         binding.btnDate.setOnClickListener {
