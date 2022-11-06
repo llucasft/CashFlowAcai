@@ -10,22 +10,31 @@ import com.example.cashflowacai.database.AppDataBase
 import com.example.cashflowacai.databinding.ActivitySeeRegistersBinding
 import com.example.cashflowacai.extensions.toBrazilianReal
 import com.example.cashflowacai.model.Register
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
 class SeeRegistersActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivitySeeRegistersBinding
+    private lateinit var binding: ActivitySeeRegistersBinding
     var toQuerySartDate = ""
     var toQueryEndDate = ""
-    var date1 : Date? = null
-    var date2 : Date? = null
-    val calendar = Calendar.getInstance()
-    val year = calendar.get(Calendar.YEAR)
-    val month = calendar.get(Calendar.MONTH)
-    val day = calendar.get(Calendar.DAY_OF_MONTH)
-//    lateinit var register : Register
+    var date1: Date? = null
+    var date2: Date? = null
+    private val calendar = Calendar.getInstance()
+    private val year = calendar.get(Calendar.YEAR)
+    private val month = calendar.get(Calendar.MONTH)
+    private val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+    private var pixValue: String = "0"
+//    private var cashValue: String = "0"
+//    private var debitValue: String = "0"
+//    private var creditValue: String = "0"
+//    private var ifoodValue: String = "0"
+//    private var totalValue: String = "0"
 
     // Creating database instance in class
     private val registerDao by lazy {
@@ -35,14 +44,14 @@ class SeeRegistersActivity : AppCompatActivity() {
 
     private var registerId = 0L
 
+    private val scope = MainScope()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySeeRegistersBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = "Consultar vendas"
 
-        val db = AppDataBase.instance(this)
-        val registerDao = db.registerDao()
         //val day = dateUpdateInView()
 
         //register = registerDao.selectFromDbByDate(day)
@@ -58,91 +67,83 @@ class SeeRegistersActivity : AppCompatActivity() {
             showDateEndRangePicker()
         }
 
-        binding.btnQuery.setOnClickListener {
-            val pixText = registerDao.selectPixFromDbByDate(date1, date2)
-            val pixValue : String = pixText.toBrazilianReal()
-            binding.tvSeeRegisterPix.text = "" + pixValue
+        with(binding) {
+            btnQuery.setOnClickListener {
+                scope.launch {
+                    val pixText = withContext(Dispatchers.IO) {
+                        registerDao.selectPixFromDbByDate(date1, date2)
+                    }
+                    val pixValue = pixText.toBrazilianReal()
 
-            val cashText = registerDao.selectCashFromDbByDate(date1, date2)
-            val cashValue : String = cashText.toBrazilianReal()
-            binding.tvSeeRegisterCash.text = "" + cashValue
+                    val cashText = withContext(IO) {
+                        registerDao.selectCashFromDbByDate(date1, date2)
+                    }
+                    val cashValue = cashText.toBrazilianReal()
 
-            val debitText = registerDao.selectDebitFromDbByDate(date1, date2)
-            val debitValue : String = debitText.toBrazilianReal()
-            binding.tvSeeRegisterDebit.text = "" + debitValue
+                    val debitText = withContext(IO) {
+                        registerDao.selectDebitFromDbByDate(date1, date2)
+                    }
+                    val debitValue = debitText.toBrazilianReal()
 
-            val creditText = registerDao.selectCreditFromDbByDate(date1, date2)
-            val creditValue : String = creditText.toBrazilianReal()
-            binding.tvSeeRegisterCredit.text = "" + creditValue
+                    val creditText = withContext(IO) {
+                        registerDao.selectCreditFromDbByDate(date1, date2)
+                    }
+                    val creditValue = creditText.toBrazilianReal()
 
-            val ifoodText = registerDao.selectIfoodFromDbByDate(date1, date2)
-            val ifoodValue : String = ifoodText.toBrazilianReal()
-            binding.tvSeeRegisterIfood.text = "" + ifoodValue
+                    val ifoodText = withContext(IO) {
+                        registerDao.selectIfoodFromDbByDate(date1, date2)
+                    }
+                    val ifoodValue = ifoodText.toBrazilianReal()
 
-            binding.tvSeeRegisterTotalValue.text = "R$" + (pixText + cashText + debitText + creditText + ifoodText).toString()
+                    val totalValue =
+                        "R$" + (pixText + cashText + debitText + creditText + ifoodText).toString()
 
-            //var pixText = BigDecimal(toQuerySartDate, toQueryEndDate)
-
-
-//            val cashText : String = register.cash.toBrazilianReal()
-//            tvSeeRegisterCash.text = "Dinheiro: " + cashText
-//
-//            val debitText : String = register.debit.toBrazilianReal()
-//            tvSeeRegisterDebit.text = "Débito: " + debitText
-//
-//            val creditText : String = register.credit.toBrazilianReal()
-//            tvSeeRegisterCredit.text = "Crédito: " + creditText
-//
-//            val ifoodText : String = register.ifood.toBrazilianReal()
-//            tvSeeRegisterIfood.text = "Ifood: " + ifoodText
+                    tvSeeRegisterPix.text = pixValue
+                    tvSeeRegisterCash.text = cashValue
+                    tvSeeRegisterDebit.text = debitValue
+                    tvSeeRegisterCredit.text = creditValue
+                    tvSeeRegisterIfood.text = ifoodValue
+                    tvSeeRegisterTotalValue.text = totalValue
+                }
+            }
         }
     }
 
-    private fun showDateStartRangePicker(){
-        //var dateToReturn = ""
-        val dpd = DatePickerDialog(this,
+    private fun showDateStartRangePicker() {
+        val dpd = DatePickerDialog(
+            this@SeeRegistersActivity,
             DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
-                var correctMonth = mMonth+1
-                binding.tvSeeRegisterStartDate.setText("" + mDay + "/" + (mMonth+1) + "/" + mYear)
+                val correctMonth = mMonth + 1
+                binding.tvSeeRegisterStartDate.setText("" + mDay + "/" + (mMonth + 1) + "/" + mYear)
                 toQuerySartDate = "$mDay/$correctMonth/$mYear"
                 //dateToModel = tvDate.text.toString() ;  // where startDate is your TextView
-                val simpleDateFormat =  SimpleDateFormat("dd/MM/yyyy", Locale("pt", "br"));  // same date format as your TextView supports
-                date1 = simpleDateFormat.parse(toQuerySartDate); // parses the string date to get a date object
-            }, year, month, day)
+                val simpleDateFormat = SimpleDateFormat(
+                    "dd/MM/yyyy",
+                    Locale("pt", "br")
+                );  // same date format as your TextView supports
+                date1 =
+                    simpleDateFormat.parse(toQuerySartDate); // parses the string date to get a date object
+            }, year, month, day
+        )
         dpd.show()
     }
 
     private fun showDateEndRangePicker() {
-        //var dateToReturn = ""
-        val dpd = DatePickerDialog(this,
+        val dpd = DatePickerDialog(
+            this@SeeRegistersActivity,
             DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
-                var correctMonth = mMonth+1
-                binding.tvSeeRegisterEndDate.setText("" + mDay + "/" + (mMonth+1) + "/" + mYear)
+                val correctMonth = mMonth + 1
+                binding.tvSeeRegisterEndDate.setText("" + mDay + "/" + (mMonth + 1) + "/" + mYear)
                 toQueryEndDate = "$mDay/$correctMonth/$mYear"
                 //dateToModel = tvDate.text.toString() ;  // where startDate is your TextView
-                val simpleDateFormat =  SimpleDateFormat("dd/MM/yyyy", Locale("pt", "br"));  // same date format as your TextView supports
-                date2 = simpleDateFormat.parse(toQueryEndDate); // parses the string date to get a date object
-            }, year, month, day)
+                val simpleDateFormat = SimpleDateFormat(
+                    "dd/MM/yyyy",
+                    Locale("pt", "br")
+                );  // same date format as your TextView supports
+                date2 =
+                    simpleDateFormat.parse(toQueryEndDate); // parses the string date to get a date object
+            }, year, month, day
+        )
         dpd.show()
     }
-
-//    private fun convertLongToDate(time: Long): String{
-//        val date = Date(time)
-//        val simpleDateFormat = SimpleDateFormat(
-//            "dd/MM/yyyy",
-//            Locale("pt", "br")
-//        )
-//        return simpleDateFormat.format(date)
-//    }
-
-    // Getting the current day date
-//    private fun dateUpdateInView(): String{
-//        // Setting date format to brazilian format
-//        val dateFormatToPtBr = "dd/MM/yyyy"
-//        val simpleDateFormat = SimpleDateFormat(dateFormatToPtBr, Locale("pt", "br"))
-//        //tvDate.text = simpleDateFormat.format(calendar.time)
-//        val todayDate = simpleDateFormat.format(calendar.time)
-//        tvSeeRegiseterStartDate.text = todayDate
-//        return todayDate
-//    }
 }

@@ -12,6 +12,12 @@ import com.example.cashflowacai.database.AppDataBase
 import com.example.cashflowacai.databinding.ActivityFormBinding
 import com.example.cashflowacai.model.Register
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -35,6 +41,8 @@ class FormActivity : AppCompatActivity() {
 
     private var registerId = 0L
     private lateinit var date: Date
+
+    private val scope = CoroutineScope(IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,12 +94,9 @@ class FormActivity : AppCompatActivity() {
     private fun setBtnSave() {
         binding.btnSave.setOnClickListener {
             val returnedRegister = addValues()
-            registerDao.save(returnedRegister)
-            Toast.makeText(
-                this,
-                "Registro salvo com sucesso! ",
-                Toast.LENGTH_LONG
-            ).show()
+            scope.launch {
+                registerDao.save(returnedRegister)
+            }
         }
     }
 
@@ -144,8 +149,12 @@ class FormActivity : AppCompatActivity() {
             } catch (e: ParseException) {
                 e.printStackTrace();
             }
-            tvTotalValue.text =
-                "R$" + (pixValue + cashValue + debitValue + creditValue + ifoodValue).toString()
+            scope.launch {
+                withContext(Main){
+                    tvTotalValue.text =
+                        "R$" + (pixValue + cashValue + debitValue + creditValue + ifoodValue).toString()
+                }
+            }
 
             // Inserting register to database
             return Register(

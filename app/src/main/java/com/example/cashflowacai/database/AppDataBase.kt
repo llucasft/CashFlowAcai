@@ -19,8 +19,7 @@ abstract class AppDataBase : RoomDatabase() {
             context,
             AppDataBase::class.java,
             "cashflow.db"
-        ).allowMainThreadQueries()
-            .build()
+        ).build()
     }
     }
 }
